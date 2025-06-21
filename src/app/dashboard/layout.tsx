@@ -36,7 +36,7 @@ function AppSidebar() {
             <SidebarContent className="p-4">
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <Link href="/dashboard" legacyBehavior passHref>
+                        <Link href="/dashboard">
                             <SidebarMenuButton isActive={pathname === '/dashboard'}><Home />Dashboard</SidebarMenuButton>
                         </Link>
                     </SidebarMenuItem>
