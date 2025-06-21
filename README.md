@@ -2,11 +2,11 @@
 
 Check in code here:
 
-<a href="https://studio.firebase.google.com/import?url=https%3A%2F%2Fgithub.com%2F7pandeys%2FGemmaFirebase.git">
+<a href="https://studio.firebase.google.com/import?url=https%3A%2F%2Fgithub.com%2F7pandeys%2FGemmaFirebase%2Ftree%2FFireBaseClaimApp">
   <img
-    height="32"
+    height="20"
     alt="Continue in Firebase Studio"
-    src="https://cdn.firebasestudio.dev/btn/continue_light_32@2x.png">
+    src="https://cdn.firebasestudio.dev/btn/continue_blue_20@2x.png">
 </a>
 
 This is a NextJS starter in Firebase Studio.
