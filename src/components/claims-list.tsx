@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { format } from 'date-fns';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 function getStatusVariant(status: ClaimStatus): 'default' | 'secondary' | 'destructive' | 'outline' {
@@ -29,6 +29,11 @@ function getStatusVariant(status: ClaimStatus): 'default' | 'secondary' | 'destr
 export function ClaimsList({ claims }: { claims: Claim[] }) {
   const { currentUser, hasRole } = useUser();
   const [filter, setFilter] = useState('all');
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const filteredClaims = useMemo(() => {
     if (filter === 'my-claims' && currentUser) {
@@ -68,7 +73,7 @@ export function ClaimsList({ claims }: { claims: Claim[] }) {
                         <Badge variant={getStatusVariant(claim.status)}>{claim.status}</Badge>
                     </TableCell>
                     <TableCell>{format(new Date(claim.dateFiled), 'PP')}</TableCell>
-                     <TableCell>{format(new Date(claim.lastUpdated), 'PPpp')}</TableCell>
+                     <TableCell>{isClient ? format(new Date(claim.lastUpdated), 'PPpp') : format(new Date(claim.lastUpdated), 'PP')}</TableCell>
                     <TableCell className="text-right">
                         <Button asChild variant="ghost" size="sm">
                         <Link href={`/dashboard/claims/${claim.id}`}>

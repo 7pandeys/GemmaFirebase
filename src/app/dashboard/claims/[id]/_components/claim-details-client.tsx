@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Claim, User } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -29,6 +29,11 @@ export function ClaimDetailsClient({ claim: initialClaim, users, processor: init
   const [entities, setEntities] = useState<ExtractClaimEntitiesOutput['entities'] | undefined>(initialClaim.extractedEntities);
   const [verification, setVerification] = useState<VerifyClaimInformationOutput | undefined>(initialClaim.verificationResult);
   const { toast } = useToast();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleExtractEntities = async () => {
     setIsExtracting(true);
@@ -121,7 +126,7 @@ export function ClaimDetailsClient({ claim: initialClaim, users, processor: init
                                             <AvatarFallback>{author?.name.charAt(0) || 'U'}</AvatarFallback>
                                         </Avatar>
                                         <div>
-                                            <p className="font-semibold text-sm">{author?.name} <span className="text-xs text-muted-foreground font-normal ml-2">{format(new Date(note.createdAt), 'PPpp')}</span></p>
+                                            <p className="font-semibold text-sm">{author?.name} <span className="text-xs text-muted-foreground font-normal ml-2">{isClient ? format(new Date(note.createdAt), 'PPpp') : format(new Date(note.createdAt), 'PP')}</span></p>
                                             <p className="text-sm text-muted-foreground">{note.content}</p>
                                         </div>
                                     </div>
