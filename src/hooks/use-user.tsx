@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useMemo, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from 'react';
 import { type User, type UserRole } from '@/lib/types';
 import { dataApi } from '@/lib/data';
 
@@ -17,12 +17,15 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [users, setUsers] = useState<User[]>([]);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  useMemo(async () => {
-    const fetchedUsers = await dataApi.getUsers();
-    setUsers(fetchedUsers);
-    if (fetchedUsers.length > 0) {
-      setCurrentUser(fetchedUsers[0]);
-    }
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const fetchedUsers = await dataApi.getUsers();
+      setUsers(fetchedUsers);
+      if (fetchedUsers.length > 0) {
+        setCurrentUser(fetchedUsers[0]);
+      }
+    };
+    fetchUsers();
   }, []);
 
   const hasRole = (role: UserRole) => {
